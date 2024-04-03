@@ -1,0 +1,23 @@
+---
+title: "K3 admixture proportions"
+output: html_notebook
+---
+
+```{r libraries}
+library(tidyverse)
+```
+
+
+```{r}
+q <- read.table("data/maf_0.05/K_3_rep_1/output.qopt")
+
+barplot(t(q),
+        col = c("darkgrey",
+                "lightgrey",
+                "black"),
+        space = 0,
+        border = NA,
+        xlab = "Individuals",
+        ylab = "Admixture proportions for K = 3, rep 1")
+```
+

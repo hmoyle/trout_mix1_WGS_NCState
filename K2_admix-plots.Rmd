@@ -1,0 +1,65 @@
+---
+title: "K2 admixture proportions"
+output: html_notebook
+---
+
+```{r libraries}
+library(tidyverse)
+source("visFuns.R")
+```
+
+
+```{r metadata}
+metadata <- read_csv("data/trout_mix_1_metadata.csv")
+pop <- data.frame(metadata$NMFS_DNA_ID...1, metadata$COUNTY_F, metadata$WATER_NAME)
+pop <- pop %>% filter(!row_number() %in% 89)
+```
+
+
+```{r ordering}
+
+```
+
+
+```{r rep_1}
+q <- read.table("data/maf_0.05/K_2_rep_1/output.qopt")
+ord <- orderInds(pop = as.vector(pop[,3]), q = q)
+
+barplot(t(q),
+        col = c("darkgrey",
+                "lightgrey"),
+        space = 0,
+        border = NA,
+        xlab = "Individuals",
+        ylab = "Admixture proportions for K = 2, rep 1")
+```
+
+
+
+```{r rep_2}
+q <- read.table("data/maf_0.05/K_2_rep_2/output.qopt")
+
+barplot(t(q),
+        col = c("darkgrey",
+                "lightgrey"),
+        space = 0,
+        border = NA,
+        xlab = "Individuals",
+        ylab = "Admixture proportions for K = 2, rep 2")
+```
+
+
+```{r rep_3}
+q <- read.table("data/maf_0.05/K_2_rep_3/output.qopt")
+
+barplot(t(q),
+        col = c("darkgrey",
+                "lightgrey"),
+        space = 0,
+        border = NA,
+        xlab = "Individuals",
+        ylab = "Admixture proportions for K = 2, rep 3")
+```
+
+
+

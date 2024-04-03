@@ -1,0 +1,9 @@
+Input: lname=results/bcf_testy/filt_snps05/all/thin_100_1/beagle-gl/beagle-gl.gz nPop=6, fname=(null) qname=(null) outfiles=results/bcf_testy/filt_snps05/all/thin_100_1/ngsadmix/maf_0.05/K_6_rep_3/output
+Setup: seed=1712166095 nThreads=4 method=1
+Convergence: maxIter=2000 tol=0.000010 tolLike50=0.100000 dymBound=0
+Filters: misTol=0.050000 minMaf=0.050000 minLrt=0.000000 minInd=0
+Input file has dim: nsites=95208 nind=98
+Input file has dim (AFTER filtering): nsites=89543 nind=98
+	[ALL done] cpu-time used =  217.47 sec
+	[ALL done] walltime used =  75.00 sec
+best like=-6773081.830210 after 250 iterations
