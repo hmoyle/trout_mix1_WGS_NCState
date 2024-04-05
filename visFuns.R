@@ -1,10 +1,13 @@
 plotCorRes <- function(cor_mat, pop=NULL, ord=NULL, superpop=NULL,
-                       title="Correlation of residuals", min_z=NA,max_z=NA, 
-                       cex.main=1.5, cex.lab=1.5, cex.legend=1.5, color_palette=c("#001260", "#EAEDE9", "#601200"),
-                       pop_labels = c(T,T), plot_legend = T, adjlab = 0.1, rotatelabpop=0, rotatelabsuperpop=0,lineswidth=1, lineswidthsuperpop=2,
+                       title="", min_z=NA,max_z=0.1, 
+                       cex.main=1.5, cex.lab=1.5, cex.legend=1.5, 
+                       color_palette=c("#001260", "#EAEDE9", "#601200"),
+                       pop_labels = c(T,T), plot_legend = T, adjlab = 0.1, 
+                       rotatelabpop=0, rotatelabsuperpop=0,
+                       lineswidth=1, lineswidthsuperpop=2,
                        adjlabsuperpop=0.16,cex.lab.2 = 1.5){
   
-  op <- par(mfrow=c(1,1) ,mar=c(5,4,4,2) +0.1,xpd=F, oma=c(0,0,0,0))
+  op <- par(mfrow=c(1,1), mar=c(5,4,4,2)+0.1 ,xpd=F, oma=c(0,0,0,0))
   on.exit(par(op))
   
   N <- dim(cor_mat)[1]
@@ -79,13 +82,8 @@ plotCorRes <- function(cor_mat, pop=NULL, ord=NULL, superpop=NULL,
   rb1 <- seq(Min, Thresh, length.out=nHalf+1)
   rb2 <- seq(Thresh, Max, length.out=nHalf+1)[-1]
   rampbreaks <- c(rb1, rb2)
-  
-  rlegend <- as.raster(matrix(rampcols, ncol=1)[length(rampcols):1,])
-  if(plot_legend){
-    layout(matrix(1:2,ncol=2), width = c(4,1),height = c(1,1))
-    par(mar=c(5,4,4,0),oma=c(1,4.5,2,0))
-  }else
-    par(mar=c(5,4,4,5),oma=c(1,4.5,2,0))
+  rlegend <- as.raster(matrix(rampcols, ncol=1))#[length(rampcols):1,])
+
   image(t(cor_mat), col=rampcols, breaks=rampbreaks,
         yaxt="n",xaxt="n", zlim=c(min_z,max_z),useRaster=T,
         main=title, 
@@ -94,37 +92,40 @@ plotCorRes <- function(cor_mat, pop=NULL, ord=NULL, superpop=NULL,
   if(min(cor_mat)<min_z) image(ifelse(t(cor_mat<min_z),1,NA),col="darkslateblue",add=T)
   image(ifelse(t(cor_mat==10),1,NA),col="black",add=T)
   
-  # put pop info
-  if(pop_labels[2])
-    text(sort(tapply(1:length(pop),pop,mean)/length(pop)),-adjlab,unique(pop),xpd=NA,cex=cex.lab, srt=rotatelabpop)
-  if(pop_labels[1])
-    text(-adjlab,sort(tapply(1:length(pop),pop,mean)/length(pop)),unique(pop),xpd=NA, cex=cex.lab,srt=90-rotatelabpop)
+  # lines delimiting pop
   abline(v=grconvertX(cumsum(sapply(unique(pop),function(x){sum(pop==x)}))/N,"npc","user"),
          col=1,lwd=lineswidth,xpd=F)
   abline(h=grconvertY(cumsum(sapply(unique(pop),function(x){sum(pop==x)}))/N, "npc", "user"),
          col=1,lwd=lineswidth,xpd=F)
   
+  # lines delimiting superpop
+  abline(v=grconvertX(cumsum(sapply(unique(superpop),function(x){sum(superpop==x)}))/N,"npc","user"),
+         col=1,lwd=lineswidthsuperpop,xpd=F)
+  abline(h=grconvertY(cumsum(sapply(unique(superpop),function(x){sum(superpop==x)}))/N, "npc", "user"),
+         col=1,lwd=lineswidthsuperpop,xpd=F)
+  
+  # ADD LEGEND BELOW PLOT
+  text(labels="Correlation of residuals", x=0.5, y=-0.07, xpd=NA,cex=1.3)
+  rasterImage(t(rlegend), xleft=0, xright=1, ybottom=-0.2, ytop = -0.1, xpd=NA)
+  text(labels=c(min_z, 0, max_z), x=c(0, 0.5, 1), y=-0.25,cex=1.2,xpd=NA)
+  
+  # add pop labels above and left
+  text(x=sort(tapply(1:length(pop),pop,mean)/length(pop)),
+       y=1.17,
+       labels=unique(pop),xpd=NA,cex=1.2, srt=90)
+  text(x=-0.07,
+       y=sort(tapply(1:length(pop),pop,mean)/length(pop)),
+       labels=unique(pop),xpd=NA, cex=1.2,srt=0)
+  
+  
   # put superpop if not null
   if(!is.null(superpop)){
     superpop <- superpop[ord]
     if(pop_labels[2])
-      text(sort(tapply(1:length(superpop),superpop,mean)/length(superpop)),-adjlabsuperpop,unique(superpop),xpd=NA,cex=cex.lab.2, srt=rotatelabsuperpop, font=2)
+      text(sort(tapply(1:length(superpop),superpop,mean)/length(superpop)),-adjlabsuperpop,unique(superpop),xpd=NA,cex=cex.lab.2, srt=90-rotatelabsuperpop, font=2)
     if(pop_labels[1])
-      text(-adjlabsuperpop,sort(tapply(1:length(superpop),superpop,mean)/length(superpop)),unique(superpop),xpd=NA, cex=cex.lab.2,srt=90-rotatelabsuperpop,font=2)
-    abline(v=grconvertX(cumsum(sapply(unique(superpop),function(x){sum(superpop==x)}))/N,"npc","user"),
-           col=1,lwd=lineswidthsuperpop,xpd=F)
-    abline(h=grconvertY(cumsum(sapply(unique(superpop),function(x){sum(superpop==x)}))/N, "npc", "user"),
-           col=1,lwd=lineswidthsuperpop,xpd=F)
-  }
-  
-  if(plot_legend){
-    par(mar=c(5,0.5,4,2))
-    plot(c(0,1),c(0,1),type = 'n', axes = F,xlab = '', ylab = '', main = '')    
-    
-    rasterImage(rlegend, 0, 0.25, 0.4,0.75)
-    text(x=0.8, y = c(0.25,0.5, 0.75),
-         labels = c(-max(abs(min_z),abs(max_z)), 0, max(abs(min_z),abs(max_z))),
-         cex=cex.legend,xpd=NA)
+      text(-adjlabsuperpop,sort(tapply(1:length(superpop),superpop,mean)/length(superpop)),unique(superpop),xpd=NA, cex=cex.lab.2,srt=rotatelabsuperpop, font=2)
+   
   }
 }
 
