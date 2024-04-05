@@ -1,0 +1,265 @@
+---
+title: "rep 2 Admixture Proportions"
+output: html_notebook
+---
+
+```{r libraries}
+library(tidyverse)
+source("visFuns.R")
+```
+
+
+```{r metadata}
+metadata <- read_csv("data/trout_mix_1_metadata.csv")
+metadata <- metadata %>% 
+  filter(!row_number() %in% 89)
+```
+
+```{r setup}
+inds <- metadata$NMFS_DNA_ID...1
+county <- metadata$COUNTY_F
+water_name <- metadata$WATER_NAME
+abbr <- metadata$abbr_wn
+
+popord <- c("San Lorenzo River", "Nacimiento River", "Mulkey Creek", "Deadman Creek", "Tamarack Creek", "Lion Creek", "North Fork Clicks Creek", "Fish Creek")
+#popord <- c("SALR", "NACR", "MULC", "DEAC", "TAMC", "LIOC", "NFCC", "FISC")
+trout_palette <- c("#546A7C","#BFBDD1","#8E7068","#253333","#BBD3D1","#F4AD8B","#D3928C","#6D7046","#7794A1")
+```
+
+```{r K2, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_2_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_2_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 2 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
+
+**This is our star player**
+
+```{r K3, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_3_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_3_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 3 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
+
+**She ranks a fairly close second**
+
+```{r K4, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_4_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_4_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 4 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
+
+```{r K5, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_5_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_5_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 5 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
+
+```{r K6, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_6_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_6_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 6 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
+
+```{r K7, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_7_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_7_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 7 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
+
+```{r K8, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_8_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_8_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 8 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
+
+```{r K9, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_9_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_9_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 9 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
+
+```{r K10, echo = FALSE}
+q <- read.table("data/ngsadmix/maf_0.05/K_10_rep_2/output.qopt")
+ord <- orderInds(q = q, pop = water_name, popord = popord)
+r <- read.table("data/evaladmix/maf_0.05/K_10_rep_2/output.corres.txt")
+
+barplot(t(q)[,ord], 
+        col = trout_palette,
+        space = 0,
+        border = NA,
+        cex.axis = 1.1,
+        cex.lab = 1.3,
+        ylab = "Admixture proportions for K = 10 (rep 2)",
+        xlab = "",
+        xpd = NA)
+abline(v=1:nrow(q), col= "white", lwd=0.2)
+abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
+#text(labels="*", x=c(5, 24, 32)-0.5, y = 1.03, cex = 2, xpd = NA)
+
+plotCorRes(cor_mat = r, 
+           pop = abbr, 
+           ord = ord, 
+           title = "", 
+           max_z = 0.1, 
+           min_z = -0.1)
+```
