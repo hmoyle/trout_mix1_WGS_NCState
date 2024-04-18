@@ -46,7 +46,7 @@ barplot(t(q)[,ord],
         xpd = NA,
         names = metadata$NMFS_DNA_ID...1[ord],
         las = 2,
-        cex.names = 0.35)
+        cex.names = 0.5)
 abline(v=1:nrow(q), col= "white", lwd=0.2)
 abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
 text(labels="San Lorenzo River", x=c(7)-0.5, y = 1.03, cex = 0.7, xpd = NA)
@@ -84,7 +84,7 @@ barplot(t(q)[,ord],
         xpd = NA,
         names = metadata$NMFS_DNA_ID...1[ord],
         las = 2,
-        cex.names = 0.35)
+        cex.names = 0.5)
 abline(v=1:nrow(q), col= "white", lwd=0.2)
 abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
 text(labels="San Lorenzo River", x=c(7)-0.5, y = 1.03, cex = 0.7, xpd = NA)
@@ -122,7 +122,7 @@ barplot(t(q)[,ord],
         xpd = NA,
         names = metadata$NMFS_DNA_ID...1[ord],
         las = 2,
-        cex.names = 0.35)
+        cex.names = 0.5)
 abline(v=1:nrow(q), col= "white", lwd=0.2)
 abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
 text(labels="San Lorenzo River", x=c(7)-0.5, y = 1.03, cex = 0.7, xpd = NA)
@@ -160,7 +160,7 @@ barplot(t(q)[,ord],
         xpd = NA,
         names = metadata$NMFS_DNA_ID...1[ord],
         las = 2,
-        cex.names = 0.35)
+        cex.names = 0.5)
 abline(v=1:nrow(q), col= "white", lwd=0.2)
 abline(v=cumsum(sapply(unique(water_name[ord]), function(x){sum(water_name[ord]==x)})), col = 1, lwd = 1.2)
 text(labels="San Lorenzo River", x=c(7)-0.5, y = 1.03, cex = 0.7, xpd = NA)
